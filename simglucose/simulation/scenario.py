@@ -40,11 +40,14 @@ class CustomScenario(Scenario):
         self.scenario = scenario
 
     def get_action(self, t):
-        times, actions = tuple(zip(*self.scenario))
-        times2compare = [parseTime(time, self.start_time) for time in times]
-        if t in times2compare:
-            idx = times2compare.index(t)
-            return Action(meal=actions[idx])
+        if self.scenario:
+            times, actions = tuple(zip(*self.scenario))
+            times2compare = [parseTime(time, self.start_time) for time in times]
+            if t in times2compare:
+                idx = times2compare.index(t)
+                return Action(meal=actions[idx])
+            else:
+                return Action(meal=0)
         else:
             return Action(meal=0)
 
